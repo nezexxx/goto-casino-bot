@@ -1,10 +1,14 @@
+import random
+import time
 from threading import Thread
 
 from telebot import types
-import time
-import random
 
 options = list('🍒🍋🍐')
+
+stav_100 = 0
+stav_200 = 0
+
 
 def animate(chat_id, message_id, bot, result):
 	time.sleep(0.5)
@@ -21,22 +25,24 @@ def animate(chat_id, message_id, bot, result):
 	send_menu(chat_id, bot)
 
 
-	if result in ['🍒🍒🍒', '🍋🍋🍋', '🍐🍐🍐']:
-		bot.send_message(chat_id, "Вы выиграли")
-	else:
-		bot.send_message(chat_id, "ВЫ проиграли")
+
 
 def send_menu(chat_id, bot):
 	keyboard = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-	keyboard.add(types.KeyboardButton(text="💸 100"))
+	stav_100 = types.KeyboardButton(text="💸 100")
+	keyboard.add(stav_100)
+	stav_200 = types.KeyboardButton(text="💸 200")
+	keyboard.add(stav_200)
 	keyboard.add(types.KeyboardButton(text="❌ Меню"))
 
 	bot.send_message(chat_id, "Сделайте ставку", reply_markup=keyboard)
+
 
 def run_animation(chat_id, result, bot):
 	message = bot.send_message(chat_id, "...")
 	t = Thread(target=animate, args=(chat_id, message.id, bot, result))
 	t.start()
+
 
 def process_message(message, user, users, bot):
 	if "100" in message.text:
@@ -46,8 +52,14 @@ def process_message(message, user, users, bot):
 			combination = random.choice(options) + random.choice(options) + random.choice(options)
 			run_animation(user['id'], combination, bot)
 
+			if combination in ['🍒🍒🍒', '🍋🍋🍋', '🍐🍐🍐']:
+				bot.send_message(user['id'], "Вы выиграли")
+				user['balance'] += stav_100 * 1.3
+				user['balance'] += stav_200 * 1.3
+			else:
+				bot.send_message(user['id'], "ВЫ проиграли")
+				user['balance'] -= stav_100
+				user['balance'] -= stav_200
 
 	else:
 		send_menu(user['id'], bot)
-
-
