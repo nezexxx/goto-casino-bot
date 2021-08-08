@@ -1,27 +1,41 @@
-import telebot
-from telebot import types
+from telebot import TeleBot
 from config import token
+from locations import slots, roulette
+
+bot = TeleBot(token)
+
+users = {}
+
+def send_help(chat_id):
+    bot.send_message(chat_id, "help")
+
+@bot.message_handler(content_types=['text'])
+def process_message(message):
+    chat_id = message.chat.id
+
+    if chat_id not in users:
+        users[chat_id] = {
+            "balance": 0,
+            "id": chat_id,
+            "location": "menu"
+        }
+
+        bot.send_message(chat_id, "Hello from joy casino")
+        return
+    user = users[chat_id]
+    if "/help" in message.text:
+        send_help(chat_id)
+    elif "Рулетка" in message.text:
+        user['location'] = 'roulette'
+    elif "Автоматы" in message.text:
+        user['location'] = 'slots'
+    else:
+        if user['location'] == 'slots':
+            slots.process_message(message, user, users, bot)
+        elif user['location'] == 'roulette':
+            roulette.process_message(message, user, users, bot)
 
 
-bot = telebot.TeleBot(token)
-
-
-@bot.message_handler(commands=['start'])
-def cmd_start(message):
-    user = message.chat.id
-
-    keyboard = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-    keyboard.add(types.KeyboardButton(text="Рулетка"))
-    keyboard.add(types.KeyboardButton(text="Покер"))
-
-    bot.send_message(user, "В какую игру будете играть?", reply_markup=keyboard)
-
-
-@bot.message_handler(commands=['help'])
-def help(message):
-    user = message.chat.id
-    bot.send_message(user,
-                     "Это бот-казино.Тут ты можешь поиграть в разные игры и выиграть goto-деньги.Напиши 'start',чтобы начать игру")
 
 
 bot.polling(none_stop=True)
