@@ -1,3 +1,6 @@
 
 def process_message(message, user, users, bot):
-    bot.send_message(user['id'], "You are in slots")
+    if "Запуск" in message.text:
+        bot.send_message(user['id'], "ВЫ дергаете ручку")
+    else:
+        bot.send_message(user['id'], "You are in slots")
