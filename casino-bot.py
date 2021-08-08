@@ -15,7 +15,7 @@ def process_message(message):
 
     if chat_id not in users:
         users[chat_id] = {
-            "balance": 0,
+            "balance": 400,
             "id": chat_id,
             "location": "menu"
         }
@@ -29,6 +29,8 @@ def process_message(message):
         user['location'] = 'roulette'
     elif "Автоматы" in message.text:
         user['location'] = 'slots'
+    elif "Меню" in message.text:
+        user['location'] = 'menu'
     else:
         if user['location'] == 'slots':
             slots.process_message(message, user, users, bot)
