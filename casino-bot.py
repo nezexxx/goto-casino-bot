@@ -1,6 +1,6 @@
 from telebot import TeleBot
 from config import token
-from locations import slots, roulette
+import location_manager
 
 bot = TeleBot(token)
 
@@ -19,25 +19,16 @@ def process_message(message):
             "id": chat_id,
             "location": "menu"
         }
+        location_manager.change_location(users[chat_id], "menu", users, bot, location_manager)
 
-        bot.send_message(chat_id, "Hello from joy casino")
-        return
     user = users[chat_id]
     if "/help" in message.text:
         send_help(chat_id)
-    elif "Рулетка" in message.text:
-        user['location'] = 'roulette'
-    elif "Автоматы" in message.text:
-        user['location'] = 'slots'
     elif "Меню" in message.text:
-        user['location'] = 'menu'
+        location_manager.change_location(user, "menu", users, bot, location_manager)
     else:
-        if user['location'] == 'slots':
-            slots.process_message(message, user, users, bot)
-        elif user['location'] == 'roulette':
-            roulette.process_message(message, user, users, bot)
-
-
-
+        location = user['location']
+        manager = location_manager.locations_managers[location]
+        manager.process_message(message, user, users, bot, location_manager)
 
 bot.polling(none_stop=True)

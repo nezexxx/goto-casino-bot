@@ -22,12 +22,6 @@ def animate(chat_id, message_id, bot, result):
 	bot.edit_message_text(chat_id=chat_id, message_id=message_id, text="...")
 	time.sleep(0.5)
 	bot.edit_message_text(chat_id=chat_id, message_id=message_id, text=result)
-
-	if result in ['🍒🍒🍒', '🍋🍋🍋', '🍐🍐🍐']:
-		bot.send_message(chat_id, "Вы выиграли")
-	else:
-		bot.send_message(chat_id, "ВЫ проиграли")
-
 	send_menu(chat_id, bot)
 
 
@@ -59,9 +53,11 @@ def process_message(message, user, users, bot):
 			run_animation(user['id'], combination, bot)
 
 			if combination in ['🍒🍒🍒', '🍋🍋🍋', '🍐🍐🍐']:
+				bot.send_message(user['id'], "Вы выиграли")
 				user['balance'] += stav_100 * 1.3
 				user['balance'] += stav_200 * 1.3
 			else:
+				bot.send_message(user['id'], "ВЫ проиграли")
 				user['balance'] -= stav_100
 				user['balance'] -= stav_200
 
