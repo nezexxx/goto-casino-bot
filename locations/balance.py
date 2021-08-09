@@ -1,10 +1,11 @@
 from helpers import generate_keyboard
-else:
+'''
+
 bot.send_message(user, answer["balance"])
 keyboard = generate_keyboard(["balance"])
 host = 'https://bank.goto.msk.ru'
 trading_token = token
-
+'''
 
 def ask_money(from_id, amount, description):
     bot.send_message(user,)
