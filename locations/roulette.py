@@ -1,7 +1,7 @@
 # from casino-bot.py import
 def welcome(user, users, bot, location_manager):
     pass
-
+'''
 def process_message(message, user, users, bot, location_manager):
 
     chat_id = message.chat.id
@@ -106,7 +106,7 @@ def process_message(message, user, users, bot, location_manager):
                 bot.send_message(user['id'],"выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(trandom_number_green, int(balance) * 100))
             else:
                 loose += 1
-                bot.send_message(user['id'], "вы проиграли")
+                bot.send_message(user['id'], "вы проиграли")'''
 
     #
     # if message.text == "Ставка":
