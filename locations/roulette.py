@@ -114,3 +114,12 @@ def process_message(message, user, users, bot, location_manager):
     # else:
     #     bot.send_message(user['id'], """Вы в рулетке.Чтобы начать игру,
     #     вам над поставить ставку.Для этого вам надо написать 'Ставка'""")
+
+# скопировал сюда, чтобы починить merge conflict
+def process_message2(message, user, users, bot, location_manager):
+
+    if message.text == "Ставка":
+        bot.send_message(user['id'], "Вы делаете ставку")
+    else:
+        bot.send_message(user['id'], """Вы в рулетке.Чтобы начать игру,
+        вам над поставить ставку.Для этого вам надо написать 'Ставка'""")
