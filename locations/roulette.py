@@ -2,7 +2,7 @@ from helpers import generate_keyboard
 # from balance import *
 import random
 from helpers import *
-
+from locations.userr import users
 
 
 
@@ -27,6 +27,8 @@ def choose_bet(user, message, bot):
 
     if "Меню" in message.text:
         del user["bet"]
+        del user["color"]
+        del user["number"]
 
     try:
         bet = int(message.text)
@@ -53,6 +55,8 @@ def choose_bet(user, message, bot):
 
     if "Меню" in message.text:
         del user["bet"]
+        del user["color"]
+        del user["number"]
 
 
 
@@ -64,6 +68,7 @@ def colors_of(message,bot,user):
     if "Меню" in message.text:
         del user["color"]
         del user["bet"]
+        del user["number"]
 
     if message.text in spisok_of_colors:
         colors = message.text
@@ -72,12 +77,13 @@ def colors_of(message,bot,user):
         bot.send_message(message.chat.id,"Введите число от 1 до 37\n18 черных🖤, 18 красных🍎, 1 зеленых💚")
         user["color"] = color
     else:
-        bot.send_message(message.chat.id, "введен неверный цвет")
+        bot.send_message(message.chat.id, "введен неверный цвет\nЕсли вы решили выйти из игры, дабавив ставку\nвам нужно доиграть, потому что с вас списалась ставка")
         return
 
     if "Меню" in message.text:
         del user["color"]
         del user["bet"]
+        del user["number"]
 
 
 def number_of(message,bot,user):
@@ -157,9 +163,7 @@ def game123(message, user, users, bot, location_manager):
             balance += bet * 25
             bot.send_message(message.chat.id, "вы выиграли")
             print("я дошел до сюда")
-            bot.send_message(message.chat.id,
-                             "выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(
-                                 random_number_black, (int(balance) + int(bet)) * 25))
+            bot.send_message(message.chat.id,"выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(random_number_black, (int(balance) + int(bet)) * 25))
             del user["bet"]
             del user["color"]
             del user["number"]
@@ -177,9 +181,7 @@ def game123(message, user, users, bot, location_manager):
         if number == random_number_red:
             balance += bet * 25
             bot.send_message(message.chat.id, "вы выиграли")
-            bot.send_message(message.chat.id,
-                             "выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(
-                                 random_number_red, (int(balance) + int(bet)) * 25))
+            bot.send_message(message.chat.id,"выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(random_number_red, (int(balance) + int(bet)) * 25))
             del user["bet"]
             del user["color"]
             del user["number"]
@@ -197,9 +199,7 @@ def game123(message, user, users, bot, location_manager):
         if number == random_number_red:
             balance += bet * 25
             bot.send_message(message.chat.id, "вы выиграли")
-            bot.send_message(message.chat.id,
-                             "выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(
-                                 random_number_red, (int(balance) + int(bet)) * 25))
+            bot.send_message(message.chat.id,"выпало{}\nпоздравляю с победой\n ваш коэффицент 2.5\nсейчас ваш баланс{}".format(random_number_red, (int(balance) + int(bet)) * 25))
             del user["bet"]
             del user["color"]
             del user["number"]
@@ -211,3 +211,10 @@ def game123(message, user, users, bot, location_manager):
             del user["color"]
             del user["number"]
             send_menu(user["id"], bot)
+
+
+
+
+
+
+

@@ -7,9 +7,13 @@ try:
 except:
     token = os.environ['S3_SECRET']
 
+from locations.userr import users
+
 bot = TeleBot(token)
 
-users = {}
+
+
+# users = {}
 
 def send_help(chat_id):
     bot.send_message(chat_id, "help")
