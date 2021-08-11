@@ -2,9 +2,13 @@ from telebot import TeleBot
 from config import token
 import location_manager
 
+from locations.userr import users
+
 bot = TeleBot(token)
 
-users = {}
+
+
+# users = {}
 
 def send_help(chat_id):
     bot.send_message(chat_id, "help")
