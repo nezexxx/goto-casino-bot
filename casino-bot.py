@@ -1,6 +1,11 @@
 from telebot import TeleBot
-from config import token
 import location_manager
+import os
+
+try:
+    from config import token
+except:
+    token = os.environ['S3_SECRET']
 
 bot = TeleBot(token)
 
