@@ -48,6 +48,7 @@ def welcome(user, users, bot, location_manager):
 def process_message(message, user, users, bot, location_manager):
     if "Назад" in message.text:
         location_manager.change_location(user, "menu", users, bot, location_manager)
+
     elif "100" in message.text:
         if user['balance'] < 100:
             bot.send_message(user['id'], 'Недостаточно средств на балансе')
