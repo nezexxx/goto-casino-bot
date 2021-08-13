@@ -14,10 +14,7 @@ def send_menu(chat_id, bot):
 
 
 def welcome(users, user,  bot, location_manager):
-    send_menu(users['id'], bot)
-
-
-
+    send_menu(user['id'], bot)
 
 
 def choose_bet(user, message, bot):
@@ -35,10 +32,12 @@ def choose_bet(user, message, bot):
     except:
         bot.send_message(message.from_user.id, "это не число")
         return
-    try:
-        balance > 0
-    except:
+    if user["balance"] <=  0:
         bot.send_message(message.from_user.id, "баланес ниже 0,пополните баланс")
+        return
+
+    if bet <= 0 :
+        bot.send_message(message.from_user.id, "некорректная ставка")
         return
 
     if int(bet) > int(balance):
@@ -112,9 +111,6 @@ def number_of(message,bot,user):
         del user["number"]
         del user["color"]
         del user["bet"]
-
-
-
 
 def process_message(message, user, users, bot, location_manager):
     # balance = user["balance"]
@@ -211,10 +207,4 @@ def game123(message, user, users, bot, location_manager):
             del user["color"]
             del user["number"]
             send_menu(user["id"], bot)
-
-
-
-
-
-
 
