@@ -20,13 +20,7 @@ def process_message(message):
             "location": "menu"
         }
         location_manager.change_location(users[chat_id], "menu", users, bot, location_manager)
-    elif chat_id in users:
-        users[chat_id] = {
-            "balance": balance,
-            "id": chat_id,
-            "location": "menu"
-        }
-        location_manager.change_location(users[chat_id], "menu", users, bot, location_manager)
+
     user = users[chat_id]
     if "/help" in message.text:
         send_help(chat_id)

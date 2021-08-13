@@ -1,7 +1,7 @@
 from helpers import generate_keyboard
 
 def welcome(user, users, bot, location_manager):
-    keyboard = generate_keyboard(['Рулетка', 'Автоматы', 'Баланс','Покер'])
+    keyboard = generate_keyboard(['Рулетка', 'Автоматы', 'Баланс', 'Покер'])
     bot.send_message(user['id'], "Выберите режим", reply_markup=keyboard)
 
 def process_message(message, user, users, bot, location_manager):

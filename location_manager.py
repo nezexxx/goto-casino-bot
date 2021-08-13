@@ -5,8 +5,8 @@ locations_managers = {
     "slots": slots,
     "menu": menu,
     "roulette": roulette,
-    "balance":balance,
-    "pocer":pocer
+    "balance": balance,
+    "pocer": pocer
 }
 
 def change_location(user, location, users, bot, location_manager):
